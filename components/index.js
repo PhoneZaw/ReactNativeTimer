@@ -1,7 +1,9 @@
 import React,{useState,useEffect} from 'react'
-import { View, Text,StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text,StyleSheet } from 'react-native'
+import Button from './Button'
 import Countdown from './Countdown'
 import Display from './Display'
+import Title from './Title'
 
 const Timer = () => {
     const [time,setTime] = useState('')
@@ -60,22 +62,19 @@ const Timer = () => {
 
     return (
         <View  style={[styles.container,{backgroundColor: color}]}>
-            <Text style={styles.text}>Timer</Text>
+            <Title text='Timer'/>
             {reset ? <Display time={time} pressHandler={pressHandler}/> : <Countdown seconds={seconds}/>}
             <View style={styles.btnContainer}>
+                
                 {time ?
-                    <TouchableOpacity style={styles.startBtn} onPress={startHandler}>
-                        <Text style={styles.buttonText}>{start ? 'Stop' : 'Start'}</Text>
-                    </TouchableOpacity>
+                        <Button text={start ? 'pause' : 'play'} onPress={startHandler}/>
                     :
-                    null
+                        null
                 }
                 {reset ?
                         null
                     :
-                    <TouchableOpacity style={styles.startBtn} onPress={resetHandler}>
-                        <Text style={styles.buttonText}>Reset</Text>
-                    </TouchableOpacity>
+                        <Button text={'undo'} onPress={resetHandler}/>
                 }
             </View>
         </View>
@@ -89,33 +88,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     btnContainer: {
+        paddingLeft: '42%',
         flexDirection: 'row',
         position: 'absolute',
-        bottom: 100,
+        bottom: 80,
     },
-    startBtn: {
-        marginTop: 50,
-        marginLeft: 20,
-        height: 50,
-        width: 100,
-        backgroundColor: 'blue',
-        borderRadius: 10,
-        textAlign: 'center',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    text: {
-        position: 'absolute',
-        top: 50,
-        marginTop:0,
-        fontSize: 40,
-        fontWeight: 'bold',
-        color: 'black',
-    },
-    buttonText: {
-        fontSize: 20,
-        color: 'white',
-    },
+    
 })
 
 export default Timer
